@@ -1,0 +1,26 @@
+services:
+  ccp:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    networks:
+      - ccp
+
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ccp
+    ports:
+      - "5432:5432"
+    networks:
+      - ccp
+
+networks:
+  ccp:
+    driver: bridge
